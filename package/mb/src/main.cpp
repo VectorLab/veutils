@@ -45,8 +45,9 @@ M_A,// -a=
 M_RPATH,// -r
 M_DCCF,// --ccflags=
 M_DCXXF,// --cxxflags=
-M_DLDF// --ldflags=
-
+M_DLDF,// --ldflags=
+M_FPIC,// -fPIC
+M_STD// -std=
 };
 
 std::unordered_map<std::string,MbCmdEnum> MbCmdMap{
@@ -71,7 +72,10 @@ std::unordered_map<std::string,MbCmdEnum> MbCmdMap{
 {"-r",MbCmdEnum::M_RPATH},
 {"--ccflags",MbCmdEnum::M_DCCF},
 {"--cxxflags",MbCmdEnum::M_DCXXF},
-{"--ldflags",MbCmdEnum::M_DLDF}
+{"--ldflags",MbCmdEnum::M_DLDF},
+{"-fPIC",MbCmdEnum::M_FPIC},
+{"-std",MbCmdEnum::M_STD}
+
 };
 
 };
@@ -224,17 +228,36 @@ break;
 };
 case mb::MbCmdEnum::M_DCCF:{
 REQUIRE_PARAM_VALUE
-task.ccflags=param_value;
+task.ccflags+=param_value;
+task.ccflags+=" ";
 break;
 };
 case mb::MbCmdEnum::M_DCXXF:{
 REQUIRE_PARAM_VALUE
-task.cxxflags=param_value;
+task.cxxflags+=param_value;
+task.cxxflags+=" ";
 break;
 };
 case mb::MbCmdEnum::M_DLDF:{
 REQUIRE_PARAM_VALUE
-task.ldflags=param_value;
+task.ldflags+=param_value;
+task.ldflags+=" ";
+break;
+};
+case mb::MbCmdEnum::M_FPIC:{
+task.ccflags+="-fPIC ";
+task.cxxflags+="-fPIC ";
+task.ldflags+="-fPIC ";
+break;
+};
+case mb::MbCmdEnum::M_STD:{
+REQUIRE_PARAM_VALUE
+task.ccflags+="-std=c";
+task.ccflags+=param_value;
+task.ccflags+=" ";
+task.cxxflags+="-std=c++";
+task.cxxflags+=param_value;
+task.cxxflags+=" ";
 break;
 };
 case mb::MbCmdEnum::M_OTHER:
