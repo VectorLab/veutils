@@ -47,7 +47,9 @@ M_DCCF,// --ccflags=
 M_DCXXF,// --cxxflags=
 M_DLDF,// --ldflags=
 M_FPIC,// -fPIC
-M_STD// -std=
+M_STD,// -std=
+M_DCCFE,// --ccfe
+M_DCXXFE// --cxxfe
 };
 
 std::unordered_map<std::string,MbCmdEnum> MbCmdMap{
@@ -74,8 +76,9 @@ std::unordered_map<std::string,MbCmdEnum> MbCmdMap{
 {"--cxxflags",MbCmdEnum::M_DCXXF},
 {"--ldflags",MbCmdEnum::M_DLDF},
 {"-fPIC",MbCmdEnum::M_FPIC},
-{"-std",MbCmdEnum::M_STD}
-
+{"-std",MbCmdEnum::M_STD},
+{"--ccfe",MbCmdEnum::M_DCCFE},
+{"--cxxfe",MbCmdEnum::M_DCXXFE}
 };
 
 };
@@ -258,6 +261,16 @@ task.ccflags+=" ";
 task.cxxflags+="-std=c++";
 task.cxxflags+=param_value;
 task.cxxflags+=" ";
+break;
+};
+case mb::MbCmdEnum::M_DCCFE:{
+REQUIRE_PARAM_VALUE
+task.ccfe.insert(param_value);
+break;
+};
+case mb::MbCmdEnum::M_DCXXFE:{
+REQUIRE_PARAM_VALUE
+task.cxxfe.insert(param_value);
 break;
 };
 case mb::MbCmdEnum::M_OTHER:

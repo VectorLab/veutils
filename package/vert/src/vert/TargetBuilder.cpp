@@ -34,7 +34,7 @@ std::function<bool(std::filesystem::path const&)> v9=
 if(!std::filesystem::is_regular_file(v5_cf)){ return false; }
 std::string v6_ft(v5_cf.extension().c_str());
 std::string v10(v5_cf.c_str());
-if(1==this->cxxft.count(v6_ft)){
+if(1==this->cxxfe.count(v6_ft)){
 this->log->out("CXX ")->out(v10)->endl();
 
 std::string v7_on("_o_");
@@ -59,7 +59,7 @@ return true;
 
 v3_of+=v7_of.c_str();
 v3_of+=" ";
-}else if(1==this->ccft.count(v6_ft)){
+}else if(1==this->ccfe.count(v6_ft)){
 this->log->out("CC ")->out(v10)->endl();
 
 std::string v7_on("_o_");

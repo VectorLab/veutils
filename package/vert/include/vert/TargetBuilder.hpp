@@ -24,7 +24,7 @@ std::vector<std::filesystem::path>
 std::vector<std::string> sharedlibname;
 ILogger* log=nullptr;
 bool userpath=true;
-std::unordered_set<std::string> ccft={".c"},cxxft={".cpp"};
+std::unordered_set<std::string> ccfe={".c"},cxxfe={".cpp"};
 
 #ifdef __ANDROID__
 std::string ccflags=" -c ";
